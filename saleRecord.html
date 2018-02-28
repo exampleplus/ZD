@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>寄售记录</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style>
+			.mui-content{
+				font-size: 14px;
+			}
+			.mui-table-view .mui-table-view-cell span{
+				line-height: 2.5;
+			}
+			.mui-table-view-cell:after{
+				left: 0;
+			}
+			.mui-padd-top20{
+				padding-top:20px;
+			}
+		</style>
+	</head>
+	
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">寄售记录</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view" id="saleList">
+		       
+			</ul>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script src="js/jquery.min.js"></script>
+		<script type="text/javascript">
+			mui.init({
+				
+			})
+			var  arr=[];//存放列表数据
+			var saleList=$("#saleList");
+			$.ajax('js/saleRecord.json',{
+				dataType:'json',//服务器返回json格式数据
+				type:'get',//HTTP请求类型
+				success:function(data){
+					var list=data.data.list;
+					$(list).each(function(index,value){
+						arr.unshift(value)
+					})
+					$(arr).each(function(index,value){
+						var val=arr[index];
+						saleList.append(
+							'<li class="mui-table-view-cell">'+
+					           '<div class="mui-pull-left mui-col-sm-4 mui-col-xs-4">'+
+					           		'<span class="mui-block">'+val.goodsType+'</span>'+
+					           		'<span class="mui-block">'+val.Type+'</span>'+
+					           '</div>'+
+					           '<div class="mui-pull-left mui-col-sm-4 mui-col-xs-4">'+
+					           		'<span class="mui-block">'+val.saleTime+'</span>'+
+					           		'<span class="mui-block">'+val.saleMoney+'</span>'+
+					          '</div>'+
+					           '<div class="mui-pull-left mui-text-center mui-col-sm-4 mui-col-xs-4 mui-padd-top20">'+
+					           		'<span class="mui-block">'+val.status+'</span>'+
+					           '</div>'+
+					        '</li>'
+						)
+					})
+				},
+				error:function(xhr,type,errorThrown){
+				}
+			});
+			
+		</script>
+	</body>
+
+</html>

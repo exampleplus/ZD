@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>工作信息</title>
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="css/app.css" />
+		<link href="css/mui.picker.css" rel="stylesheet" />
+		<link href="css/mui.poppicker.css" rel="stylesheet" />
+		
+		<style>
+			.mui-content{
+				font-size: 14px;
+			}
+			.mui-title{
+				color:#000;
+			}
+			.mui-input-group:before{
+				height: 1px;
+			}
+			.mui-input-group .mui-input-row:after{
+				left:0;
+				height: 1px;
+			}
+			.mui-input-group .mui-input-row{
+				height: 50px;
+			}
+			.mui-input-row label{
+				padding:16px 10px;
+			}
+			.mui-input-row label~input, .mui-input-row label~select, .mui-input-row label~textarea{
+				padding-top:19px;
+			}
+			.mui-margin-top20{
+				margin-top:20px;
+			}
+			/*.ui-alert {
+				text-align: center;
+				padding: 20px 10px;
+				font-size: 16px;
+			}*/
+			.mui-navigate-right:after, .mui-push-left:after, .mui-push-right:after{
+				font-size: 1.5em;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">工作信息</h1>
+		</header>
+		<div class="mui-content">
+			<form class="mui-input-group mui-margin-top20">
+			    <div class="mui-input-row">
+			        <label>单位名称：</label>
+			        <input type="text" class="mui-input-clear" placeholder="请输入单位名称">
+			    </div>
+			    <div class="mui-input-row">
+			        <label>单位电话：</label>
+			        <input type="text" placeholder="请输入单位电话">
+			    </div>
+			    <div class="mui-input-row" id="showCityPicker">
+			    	<label for="">单位地址：</label>
+			    	<input type="text" id="cityResult" />
+			    	<a class="mui-navigate-right"> </a>
+			    </div>
+			    <div class="mui-input-row">
+			        <label>详细地址：</label>
+			        <input type="text" placeholder="详细街道和门牌号" id="cityDetail">
+			    </div>
+			    <div class="mui-input-row">
+			    	<label for="">工作证照：</label>
+			    	<a class="mui-navigate-right"> </a>
+			    </div>
+			     <div class="mui-input-row" id="showWorkTime">
+			    	<label for="">工作时长：</label>
+			    	<input type="text" id="WorkTime"/>
+			    	<a class="mui-navigate-right"> </a>
+			    </div>
+			</form>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/mui.picker.js"></script>
+		<script src="js/mui.poppicker.js"></script>
+		<script src="js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			(function($, doc) {
+				$.init();
+				$.ready(function() {
+					//一级级联  选择工作时长
+					var WorkTimePicker = new $.PopPicker();
+					WorkTimePicker.setData([{
+						text: '一年内'
+					}, {
+						text: '一年到三年'
+					}, {
+						text: '三年到五年'
+					}]);
+					var showWorkTime = doc.getElementById('showWorkTime');
+					var WorkTime = doc.getElementById('WorkTime');
+					showWorkTime.addEventListener('tap', function(event) {
+						WorkTimePicker.show(function(items) {
+							WorkTime.value = items[0].text;
+						});
+					}, false);
+					
+					
+					//三级  级联示例
+					var cityPicker = new $.PopPicker({
+						layer: 3
+					});
+					cityPicker.setData(cityData3);
+					var showCityPicker = doc.getElementById('showCityPicker');//点击选择城市
+					var cityResult = doc.getElementById('cityResult');//存放选择的城市结果input
+					showCityPicker.addEventListener('tap', function(event) {
+						cityPicker.show(function(items) {
+							cityResult.value =  (items[0] || {}).text + (items[1] || {}).text + (items[2] || {}).text;
+						});
+					}, false);
+				});
+			})(mui, document);
+			
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>首页</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="http://at.alicdn.com/t/font_526177_pmk0t5gjbolp7gb9.css" />
+		<!--App自定义的css-->
+		<link rel="stylesheet" href="css/app.css">
+		<style type="text/css">
+			.mui-login{
+				font-size: 17px!important;
+				color:#fff;
+				padding-top:15px!important;
+			}
+			.mui-table-view:before{
+				height:0;
+			}
+			.mui-grid-view.mui-grid-9{
+				border-top:none;
+				border-left:none;
+			}
+			select{
+				height: 35px;
+			    padding: 5px 15px;
+			    -webkit-appearance: menulist-button;
+			} 
+			.font14{
+				font-size: 14px;
+			}
+			.mui-btn-orange{
+				background: rgb(255,152,0);
+				color:#fff;
+			}
+			.radius{
+				width: 100px;
+				height: 100px;
+				line-height: 100px;
+				text-align: center;
+				margin:20px auto;
+				border-radius: 50%;
+				border:1px solid #ccc;
+			}
+			.mui-margin-top20{
+				margin-top:20px;
+				font-size: 16px;
+			}
+			.progress li{
+				display: inline-block;
+				padding:10px 5px;
+				/*width: 20%;*/
+			}
+			.iconfont{
+				font-size: 1.5em;
+			}
+			.mui-margin-bottom10{
+				margin-bottom: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<!--主题内容-->
+		<div class="mui-content">
+			<!--轮播-->
+			<div class="mui-collapse-content">
+				<div id="slider" class="mui-slider">
+					<div class="mui-slider-group mui-slider-loop">
+						<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							<a href="#">
+								<img src="img/banner03.jpg" class="h333">
+							</a>
+						</div>
+						<!-- 第一张 -->
+						<div class="mui-slider-item">
+							<a href="#">
+								<img src="img/banner01.jpg">
+							</a>
+						</div>
+						<!-- 第二张 -->
+						<div class="mui-slider-item">
+							<a href="#">
+								<img src="img/banner02.jpg">
+							</a>
+						</div>
+						<!-- 第三张 -->
+						<div class="mui-slider-item">
+							<a href="#">
+								<img src="img/banner03.jpg">
+							</a>
+						</div>
+						<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+						<div class="mui-slider-item mui-slider-item-duplicate">
+							<a href="#">
+								<img src="img/banner01.jpg">
+							</a>
+						</div>
+					</div>
+					<div class="mui-slider-indicator">
+						<div class="mui-indicator mui-active"></div>
+						<div class="mui-indicator"></div>
+						<div class="mui-indicator"></div>
+					</div>
+				</div>
+			</div>
+			<!--典当物品及分类-->
+			<div class="mui-content-padded">
+				<div class="mui-row" style="overflow: hidden;">
+					<span class="mui-pull-left mui-block lineH65 font14">典当类型</span>
+					<ul  class="mui-table-view mui-pull-right" style="overflow: hidden;" id="box">
+						<li class="mui-table-view-cell mui-pull-left mui-table-view-cell-padded">
+							<span class="mui-block icon iconfont icon-zuanshi mui-margin-bottom10"></span>
+							<span class="mui-block mui-margin-left3">民品</span>
+						</li>
+						<li class="mui-table-view-cell mui-pull-left mui-table-view-cell-padded">
+							<span class="mui-block icon iconfont icon-fangchan mui-margin-bottom10"></span>
+							<span class="mui-block mui-margin-left3">房产</span>
+						</li>
+						<li class="mui-table-view-cell mui-pull-left mui-table-view-cell-padded">
+							<span class="mui-block icon iconfont icon-qiche-copy mui-margin-bottom10"></span>
+							<span class="mui-block mui-margin-left3">汽车</span>
+						</li>
+						<li class="mui-table-view-cell mui-pull-left mui-table-view-cell-padded">
+							<span class="mui-block icon iconfont icon-qita mui-margin-bottom10"></span>
+							<span class="mui-block mui-margin-left3">其他</span>
+						</li>
+					</ul>
+				</div>
+				<!--典当物品-->
+				<div class="mui-content-padded">
+					<button type="button" class="mui-btn mui-btn-orange mui-btn-block" id="sendRequest">我要典当</button>
+				</div>
+				<!--寄售返祖-->
+				<div class="mui-text-center">
+					<div class="radius mui-text-center">
+						还是
+					</div>
+				</div>
+				<div class="mui-content-padded">
+					<button type="button" class="mui-btn mui-btn-orange mui-btn-block" id="sale">典当寄售，领取定金</button>
+				</div>
+				<p class="mui-text-center mui-margin-top20">
+					典当流程
+				</p>
+				<ul class="mui-table-view progress">
+			        <li class="mui-table-view-cell mui-text-center">
+			           <span class="icon iconfont icon-ITshenqing"></span>
+			           <p>在线申请</p>
+			        </li>
+			        <li class="mui-table-view-cell mui-text-center">
+			           <span class="icon iconfont icon-jianding"></span>
+			           <p>线上评估</p>
+			        </li>
+			        <li class="mui-table-view-cell mui-text-center">
+			           <span class="icon iconfont icon-baogao"></span>
+			           <p>评估报告</p>
+			        </li>
+			         <li class="mui-table-view-cell mui-text-center">
+			           <span class="icon iconfont icon-xunhuan"></span>
+			           <p>寄售/返租</p>
+			        </li>
+			        <li class="mui-table-view-cell mui-text-center">
+			           <span class="icon iconfont icon-dingjin"></span>
+			           <p>收取定金</p>
+			        </li>
+			    </ul>
+				<!--<ul class="mui-table-view mui-grid-view mui-grid-9">
+		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+		            	<a href="#">
+		                    <span class="icon iconfont icon-yewu"></span>
+		                    <div class="mui-media-body">我的业务</div>
+		            	</a>
+		            </li>
+		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"  id="gosale">
+			            	<a href="javascript:;">
+			                    <span class="icon iconfont icon-diandangxing"></span>
+			                    <div class="mui-media-body">我的典当</div>
+			            	</a>
+		            </li>
+		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+		            	<a href="#">
+		                    <span class="icon iconfont icon-diannao"></span>
+		                    <div class="mui-media-body">续当</div>
+		            	</a>
+		            </li>
+		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+		            	<a href="#">
+		                    <span class="icon iconfont icon-shuhui"></span>
+		                    <div class="mui-media-body">赎回</div>
+		            	</a>
+		            </li>
+		            <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+		            	<a href="#">
+		                    <span class="icon iconfont icon-jianding"></span>
+		                    <div class="mui-media-body">鉴定评估</div>
+		           		 </a>
+		            </li>
+		             <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+		            	<a href="#">
+		                    <span class="icon iconfont icon-dangdi"></span>
+		                    <div class="mui-media-body">身边典当</div>
+		           		 </a>
+		            </li>
+		        </ul> -->
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script src="js/jquery.min.js"></script>
+		<script>
+			mui.init({
+				swipeBack:true //启用右滑关闭功能
+			});
+			var slider = mui("#slider");
+			slider.slider({
+				interval: 2000
+			});
+		</script>
+		<script>
+		
+			//a链接不能跳转的问题
+//			mui('body').on('tap','a',function(){
+//			    window.top.location.href=this.href;
+//			});
+			$(function(){
+				var  screenWidth=window.screen.width;//屏幕可工作宽度
+				if(screenWidth>=414){
+					$(".progress").addClass('mui-text-center');
+				}
+				//抵押物分类添加边框
+				let $box=$("#box");
+				$box.find('li').each(function(index){
+					if(index==0){
+						$(this).click(function(){
+	//						$(this).addClass("mui-border-minpin");
+							$(this).css("border","1px solid yellow");
+	//						$(this).siblings().removeClass('mui-border-fangchan mui-border-qiche mui-border-qita');
+							$(this).siblings().css("border","1px solid #fff");
+						})
+					}
+					if(index==1){
+						$(this).click(function(){
+	//						$(this).addClass("mui-border-fangchan");
+							$(this).css("border","1px solid rgba(51, 255, 0, 0.89)");
+	//						$(this).siblings().removeClass('mui-border-minpin mui-border-qiche mui-border-qita');
+							$(this).siblings().css("border","1px solid #fff");
+						})
+					}
+					if(index==2){
+						$(this).click(function(){
+	//						$(this).addClass("mui-border-qiche");
+							$(this).css("border","1px solid blueviolet");
+	//						$(this).siblings().removeClass('mui-border-minpin mui-border-fangchan mui-border-qita');
+							$(this).siblings().css("border","1px solid #fff");
+						})
+					}
+					if(index==3){
+						$(this).click(function(){
+	//						$(this).addClass("mui-border-qita");
+							$(this).css("border","1px solid #FF0000");
+	//						$(this).siblings().removeClass('mui-border-minpin mui-border-fangchan mui-border-qiche');
+							$(this).siblings().css("border","1px solid #fff");
+						})
+					}
+				});
+				//点击我要典当进入在线典当界面
+				$("#sendRequest").click(function(){
+					window.location.href="sendReuest.html"
+				});
+				
+				//典当寄售
+				$("#sale").click(function(){
+					window.location.href="phonelist.html"
+				})
+				
+			})
+		</script>
+	</body>
+</html>

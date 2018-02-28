@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>手机估价</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="http://at.alicdn.com/t/font_526177_hbenupwaf5jkmx6r.css" />
+		<!--App自定义的css-->
+		<link rel="stylesheet" href="css/app.css">
+		<style>
+			.mui-content{
+				font-size: 13px;
+			}
+			.mui-padded10{
+				padding:10px;
+			}
+			.onsaleDays{
+				width:35%;
+				vertical-align: middle;
+				margin-right:10px;
+			}
+			#selOnsaleDays{
+				width: 25%;
+				padding: 5px;
+				/*-webkit-appearance:menulist-button;*/
+				
+			}
+			.saleIntros{
+				padding-left:20px;
+			}
+			.mui-btn-orange{
+				background: rgb(255,152,0);
+				color:#fff;
+			}
+			.mui-margin-top20{
+				margin-top: 20px;
+			}
+			.evalCont{
+				color:rgb(255,152,0);
+				font-size: 35px;
+			}
+			.mui-margin-bottom30{
+				margin-bottom: 30px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="mui-content">
+			<div class="mui-content-padded">
+				<div class="mui-padded10">
+					<div class="mui-clearfix mui-margin-bottom30">
+						<span class="mui-pull-left">您的手机初步估价为：</span>
+						<!--<button type="button" class="mui-btn mui-btn-primary mui-btn-mini mui-pull-right">重新估价</button>-->
+					</div>
+					<div class="mui-text-center evalCont mui-margin-bottom30">
+						￥<span class="evaluatePrice"></span>
+					</div>
+					
+					<div class="mui-text-center mui-clearfix">
+						<label class=" onsaleDays">寄售期</label>
+						<select name="selOnsaleDays" id="selOnsaleDays" class="">
+							<option value="7">7</option>
+							<option value="14">14</option>
+						</select>
+					</div>
+					<div class="mui-text-center mui-clearfix">
+						<p>
+							<label class="mui-col-xs-3 mui-col-sm-3">得预付定金:</label>
+							<span class="barginMoney mui-col-xs-3 mui-col-sm-3"></span>
+							<label class="mui-col-xs-3 mui-col-sm-3" style="margin-left: 20px;">得预付金:</label>
+							<span class="advancePayment mui-col-xs-3 mui-col-sm-3"></span>
+						</p>
+					</div>
+					<div class="mui-clearfix">
+						<span class="mui-block">寄售返租流程：</span>
+						<div class="mui-content-padded">
+							<div class="mui-text-left saleIntros">
+								用户根据手机实际情况填写，待手机检测估计后，可参考平台的初步估计决定是否寄售并可选择返租。若确定寄售并返租，用户需要与平台签订相关交易文本，完成整个操作后，平台即可向用户支付一定比例的定价及预付款，待寄售成功、收到用户手机并验收通过后向用户支付尾款部分。
+							</div>
+						</div>
+					</div>
+					<div class="mui-clearfix">
+						<span class="mui-block">寄售说明：</span>
+						<div class="mui-content-padded">
+							<div class="mui-text-left saleIntros">
+								用户在与平台签订《手机寄售返租合同》并收到平台支付款项后，即开始计算寄售期。寄售期间不得赎回，只可撤销，撤销需要交纳双倍定金。若寄售返租天数到期仍然未成交，需立即退回预付金及预售定金，同时缴纳手机租金。若逾期未退回，每天按估价的千分之二支付租金。
+							</div>
+						</div>
+					</div>
+					<div class="mui-clearfix">
+						<span class="mui-block">重签说明：</span>
+						<div class="mui-content-padded">
+							<div class="mui-text-left saleIntros">
+								用户在撤销寄售手机（解除原《寄售返租合同》）后，亦可选择将该手机再次向平台寄售返租，仅需要签订相关交易文本，无需进行其他流程。
+							</div>
+						</div>
+					</div>
+					<div class="mui-text-center mui-row">
+						<div class="mui-col-sm-5">
+							<input type="checkbox" name="" id="" value="" style="vertical-align: middle;" checked="checked"/>
+							<label for="">我已阅读并同意</label>
+						</div>
+						<div class="mui-col-sm-5">
+							<span class="checkContract">《寄售合同》</span>
+						</div>
+					</div>
+					<div class="mui-text-center mui-margin-top20">
+						<button type="button" class="mui-btn mui-btn-block mui-btn-orange" id="getMoney">立即拿钱</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/count.js"></script>
+		<script>
+			mui.init({
+				
+			})
+			//预付金和定金延迟显示---》估价显示之后根据费率计算得出
+			function delay(){
+				 setTimeout(function(){
+			        	var barginMoney=parseInt(totalMoney*0.1).toFixed(2);//定金
+					$(".barginMoney").text(barginMoney);//定金
+					var advancePayment=parseInt(totalMoney*0.7).toFixed(2);//预付金
+					$(".advancePayment").text(advancePayment);//预付金
+		        },2000)
+			}
+			//估价动画效果
+			function numberAnimat(){
+				$(".evaluatePrice").numberRock({
+			            lastNumber:totalMoney,
+			            duration:1500,
+			            easing:'swing',  //慢快慢
+		        });
+			}
+			//获取URL后面参数值，并解决中文乱码的问题
+			
+			function getUrlParam(key){
+				    // 获取参数
+				    var url = window.location.search;
+				    // 正则筛选地址栏
+				    var reg = new RegExp("(^|&)"+ key +"=([^&]*)(&|$)");
+				    // 匹配目标参数
+				    var result = url.substr(1).match(reg);
+				    //返回参数值
+				    return result ? decodeURIComponent(result[2]) : null;
+				}
+			var phoneType=getUrlParam("phoneType");
+			if(phoneType == "iPhone6" || phoneType == "iPhone6Plus"){
+				var evaluatePrice=$(".evaluatePrice");//估价
+				evaluatePrice.text(1000);
+				var totalMoney=parseInt(evaluatePrice.text());//估价
+				numberAnimat();
+		        delay()
+			}else if(phoneType == "iPhone6s" || phoneType == "iPhone6sPlus"){
+				var evaluatePrice=$(".evaluatePrice");//估价
+				evaluatePrice.text(1500);
+				var totalMoney=parseInt(evaluatePrice.text());//估价
+				numberAnimat();
+		        delay();
+			}
+			else if(phoneType == "iPhone7"){
+				var evaluatePrice=$(".evaluatePrice");//估价
+				evaluatePrice.text(2000);
+				var totalMoney=parseInt(evaluatePrice.text());//估价
+				numberAnimat();
+
+		        delay();
+
+			}
+			else if(phoneType == "iPhone7Plus"){
+				var evaluatePrice=$(".evaluatePrice");//估价
+				evaluatePrice.text(2500);
+				var totalMoney=parseInt(evaluatePrice.text());//估价
+				numberAnimat();
+		        delay();
+			}else if(phoneType == "iPhone8" || phoneType == "iPhone8Plus"){
+				var evaluatePrice=$(".evaluatePrice");//估价
+				evaluatePrice.text(4000);
+				var totalMoney=parseInt(evaluatePrice.text());//估价
+				numberAnimat();
+		        delay();
+
+			}
+			else if(phoneType == "iPhoneX"){
+				var evaluatePrice=$(".evaluatePrice");//估价
+				evaluatePrice.text(5000);
+				var totalMoney=parseInt(evaluatePrice.text());//估价
+				numberAnimat();
+//			
+		        delay();
+			}else {
+				var evaluatePrice=$(".evaluatePrice");//估价
+				evaluatePrice.text(2000);
+				var totalMoney=parseInt(evaluatePrice.text());//估价
+				numberAnimat();
+//			
+		        delay();
+			}
+			//查看合同
+			$(".checkContract").click(function(){
+				window.location.href="contract.html";
+			})
+			
+			//立即拿钱
+			$("#getMoney").click(function(){
+				var btnArray = ['否', '是'];
+				mui.confirm('您在使用寄售手机功能前，已认真阅读并同意《寄售合同》的所有协议，该合同将成为对您具有法律约束力的法律文件。确认？', '寄售合同', btnArray, function(e) {
+					var index=e.index;
+					if(index==1){
+						window.location.href="saleRecord.html"
+					}
+				})
+			})
+		</script>
+	</body>
+</html>

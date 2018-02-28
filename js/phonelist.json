@@ -1,0 +1,23 @@
+{
+	"code":0,
+	"message":"获取成功",
+	"data":{
+		"list":{
+			"iphone":[
+				{"phoneType":"iphone6"},
+				{"phoneType":"iphone5s"},
+				{"phoneType":"iphone6s"},
+				{"phoneType":"iphone6 Plus"},
+				{"phoneType":"iphone6s Plus"},
+				{"phoneType":"iphone7"},
+				{"phoneType":"iphone7 Plus"}
+			],
+			"huawei":[
+				{"phoneType":"华为P8"},
+				{"phoneType":"华为P7"},
+				{"phoneType":"华为P9"},
+				{"phoneType":"华为畅享5"}
+			]
+		}
+	}
+}

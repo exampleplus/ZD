@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>在线典当</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--<link rel="stylesheet" href="css/iconfont.css" />-->
+		<link rel="stylesheet" href="http://at.alicdn.com/t/font_526177_hbenupwaf5jkmx6r.css" />
+		<!--App自定义的css-->
+		<link rel="stylesheet" href="css/app.css">
+		<style>
+			.mui-control-content {
+				background-color: white;
+				min-height: 215px;
+			}
+			.mui-control-content .mui-loading {
+				margin-top: 50px;
+			}
+			html,#slider,.mui-content{
+				width:100%;
+				height:100%;
+				
+			}
+			body{
+				/*margin-top:45px;*/
+				width:100%;
+				height:calc(100% - 45px);
+			}
+			.mui-slider-group{
+				height:calc(100% - 45px);
+			}
+			.mui-table-view-cell:after{
+				
+				left:0;
+			}
+			.mui-text-muted{
+				color:#9c9393;
+			}
+			.mui-li-border:after{
+				height:1px;
+			}
+			.mui-slider .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-group .mui-slider-item{
+				border-top:none;
+			}
+			.icon-6,.icon-clock,.icon-qian{
+				font-size: 1em;
+				margin-right:10px;
+			}
+			.icon-qian{
+				color:red;
+			}
+			.color_red{
+				color:red
+			}
+		</style>
+	</head>
+	<body>
+		<!--<header class="mui-bar mui-bar-nav bg-header">
+			<h1 class="mui-title">在线典当</h1>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left mui-back-white"></a>
+			<a class="mui-icon mui-icon-plusempty mui-pull-right mui-back-white" id="addNewRequest"></a>
+		</header>-->
+		<div class="mui-content">
+			<div id="slider" class="mui-slider">
+				<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<a class="mui-control-item" href="#item1mobile">
+						进行中
+					</a>
+					<a class="mui-control-item" href="#item2mobile">
+						历史申请
+					</a>
+				</div>
+				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div>
+				<div class="mui-slider-group">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div id="scroll1" class="mui-scroll-wrapper">
+							<div class="mui-scroll item1">
+								
+							</div>
+						</div>
+					</div>
+					<div id="item2mobile" class="mui-slider-item mui-control-content">
+						<div id="scroll2" class="mui-scroll-wrapper">
+							<div class="mui-scroll item2">
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/common.js"></script>
+		<script>
+				mui.init({
+					swipeBack: false
+				});
+			
+				var type=0;
+			  function getId(){ //获取用户ID
+			   	  return ddMethod.getUserId();
+			   }
+				var uid=getId();//用户id
+				//进行中
+				$.ajax({
+					type:"post",
+					async:false,
+					dataType:"json",
+					url:host+"applyImpawnInfo/findApplyImpawnInfo",
+					data:{
+						uid:uid,
+						type:type,
+					},
+					success:function(res){
+						var applyImpawnInfo=res.applyImpawnInfo;
+						var item1=$(".item1");
+						var ul=$("<ul class='mui-table-view applylist'></ul>");
+						$(applyImpawnInfo).each(function(index){
+							var val=applyImpawnInfo[index];
+								ul.append( 
+								'<li class="mui-table-view-cell mui-li-border datail" id="'+val.id+'">'
+								+ '<span class>'+'<i class="icon iconfont icon-6">'+'</i>'+val.goodsName+'</span>'
+								+ '<span class="mui-pull-right mui-text-muted">'+val.submitTime+'</span>'
+								+ '<span class="mui-block">'+'<i class="icon iconfont icon-clock">'+'</i>'+ val.useMoneyDays+'</span>'
+								+'<span class="mui-block">'+ '<i class="icon iconfont icon-qian">'+'</i>'+ val.AmountMoney+'</span>'
+								+'</li>');
+								item1.append(ul);
+						})
+					}
+				})
+			//历史申请,
+				$.ajax({
+				type:"post",
+				dataType:"json",
+				url:host+"applyImpawnInfo/findApplyImpawnInfo",
+				data:{
+					uid:uid
+				},
+				async:false,
+				success:function(res){
+					console.log(res)
+						var applyImpawnInfo=res.applyImpawnInfo;
+						var item2=$(".item2");
+						var ul=$("<ul class='mui-table-view applylist'></ul>");
+						$(applyImpawnInfo).each(function(index){
+							var val=applyImpawnInfo[index];
+								ul.append( 
+								'<li class="mui-table-view-cell mui-li-border gotoDetail" id="'+val.id+'">'
+								+ '<span class>'+'<i class="icon iconfont icon-6">'+'</i>'+val.goodsName+'</span>'
+								+ '<span class="mui-pull-right mui-text-muted">'+val.submitTime+'</span>'
+								+ '<span class="mui-block">'+'<i class="icon iconfont icon-clock">'+'</i>'+ val.useMoneyDays+'</span>'
+								+'<span class="mui-block">'+ '<i class="icon iconfont icon-qian">'+'</i>'+ val.AmountMoney+'</span>'
+								+'</li>');
+								item2.append(ul);
+						})
+					}
+				});
+			
+				(function($) {
+					$('.mui-scroll-wrapper').scroll({
+						indicators: true //是否显示滚动条
+					});
+				})(mui);
+			//进行中详情
+			datail=$(".datail");
+			datail.on("click",function(){
+				id=$(this).attr("id");
+					window.location.href="goodsDetail.html?param="+id
+			})
+			//历史列表详情
+			var gotoDetail=$(".gotoDetail");
+			gotoDetail.on("click",function(){
+				id=$(this).attr("id");
+					window.location.href="goodsDetail.html?param="+id
+			})
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+
+	<head>
+	<title>典当手机</title>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" href="css/app.css">
+		<style>
+			.mui-title{
+				color:#000;
+			}
+			.mui-content{
+				font-size: 14px;
+			}
+			.mui-padd{
+				padding:40px 10px;	
+			}
+			.mui-margin-top30{
+				margin-top:30px;
+			}
+			.color-orange{
+				color:rgb(255,152,0)
+			}
+			.mui-btn-orange{
+				background: rgb(255,152,0);
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">寄售详情</h1>
+		</header>
+		<div class="mui-content">
+		    <div class=" mui-padd">
+		    	<div class="mui-row">
+		    		<span class="mui-col-sm-6 mui-col-xs-6">手机型号：<span>iphone6</span></span>
+		    		<span class="mui-col-sm-6 mui-col-xs-6">申请日期：<span>2018-01-09</span></span>
+		    	</div>
+		    	
+		    	<div class="mui-row mui-margin-top30">
+		    		<span class="mui-col-sm-6 mui-col-xs-6">预付定金：<span>150.00</span></span>
+		    		<span class="mui-col-sm-6 mui-col-xs-6">预付金：<span>700.00</span></span>
+		    	</div>
+		    	<div class="mui-text-center mui-margin-top30">
+		    		<span>撤销需退还金额：  <strong class="returnMoney">1000.00</strong></span>
+		    	</div>
+		    	<div class="mui-text-center mui-margin-top30">
+		    	
+		    		<p>请确保您已将退回金额转账至我们的</p>
+		    		<span class="color-orange">指定账户</span>
+		    	</div>
+		    	<div class="mui-padd mui-text-center">
+		    		<button type="button" class="mui-btn mui-btn-mini mui-btn-orange mui-col-sm-4 mui-col-xs-4">寄售续期</button>
+		    		
+		    		<button type="button" class="mui-btn mui-btn-mini mui-btn-orange mui-col-sm-4 mui-col-xs-4">发起撤销</button>
+		    		
+		    	</div>
+		    </div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script src="js/jquery.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,248 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>典当手机</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="http://at.alicdn.com/t/font_526177_hbenupwaf5jkmx6r.css" />
+		<!--App自定义的css-->
+		<link rel="stylesheet" href="css/app.css">
+		<style>
+		.mui-content{
+			font-size: 15px;
+		}
+			.mui-padded{
+				padding:10px 20px;
+			}
+			.mui-padded-40{
+				padding:0 40px;
+			}
+			.mui-margin-top20{
+				margin-top:20px;
+			}
+			 .seltPhoneType,.seltPhoneModel,.seltPhoneStorage{
+			 	/*border: 1px solid #ccc!important;*/
+				-webkit-appearance: menulist-button;
+				padding:0 10px!important;
+			 }
+			 input[type="checkbox"]{
+			 	/*-webkit-appearance:none;*/
+			 	/*-webkit-appearance:checkbox*/
+			 }
+			#packingBox,#Instructions{
+				display: inline-block;
+				width: 20px;
+				height: 20px;
+				background: #fff;
+				border:1px solid #ccc;
+				vertical-align: middle;
+				margin-right: 10px;
+			}
+			.mui-padded10{
+				padding:0 10px;
+			}
+			.mui-table-view{
+				padding-left:10px;
+			}
+			.mui-table-view li{
+				padding:10px 0;
+				float: left;
+			}
+			.mui-table-view-cell label{
+				font-size: 15px;
+			}
+			input[type="checkbox"]{
+				width:20px;
+				height:20px;
+				vertical-align: middle;
+			}
+			.evaluate{
+				margin-top:50px;
+				color:#fff;
+			}
+			.evaluate button{
+				color:#fff;
+			}
+			.mui-btn-orange{
+				background: rgb(255,152,0);
+			}
+			.mui-input-row label{
+				padding:0;
+			}
+			.mui-input-row select{
+				font-size: 15px;
+			}
+			.mui-padded-10{
+				padding:10px
+			}
+			.mui-input-group .mui-input-row label{
+				line-height: 37px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="mui-content">
+			<div class="mui-content-padded">
+				<div class="mui-padded">
+					<!--手机品牌-->
+					<!--<span class="mui-text-left">手机品牌*</span>-->
+					<div class="mui-text-center mui-padded-10">
+						<div class="mui-input-group">
+							<div class="mui-input-row">
+								<label for="phoneBrand">手机品牌</label>
+								<select name="" id="phoneBrand" class="seltPhoneType">
+									  <option>请选择</option>    
+								</select>
+							</div>
+						</div>
+					</div>
+					
+					<!--手机型号*-->
+					<div class="mui-text-center mui-padded-10 mui-margin-top20">
+						<div class="mui-input-group">
+							<div class="mui-input-row">
+								<label for="phoneType">手机型号</label>
+								<select name="" id="phoneType" class="seltPhoneModel">
+								    <option>请选择</option>    
+								</select>
+							</div>
+						</div>
+					</div>
+					<!--手机容量*-->
+					<!--<span class="mui-text-left mui-block mui-margin-top20">手机内存*</span>-->
+					<div class="mui-text-center mui-padded-10 mui-margin-top20">
+						<div class="mui-input-group">
+							<div class="mui-input-row">
+								<label for="phoneStorage">手机内存</label>
+								<select name="" id="phoneStorage" class="seltPhoneStorage">
+								    <option>请选择</option>    
+								</select>
+							</div>
+						</div>
+					</div>
+					
+					<span class="mui-text-left mui-block mui-margin-top20">配件*</span>
+					<ul class="mui-table-view" style="overflow: hidden;">
+				        <li class="mui-table-view-cell mui-col-sm-4 mui-col-xs-6">
+				           <input type="checkbox" name="" id="" value=""/>
+				           <label for="packingBox">包装盒</label>
+				        </li>
+				         <li class="mui-table-view-cell mui-col-sm-4 mui-col-xs-6">
+				           <input type="checkbox" name="" id="" value="" />
+				           <label for="packingBox">说明书</label>
+				        </li>
+				         <li class="mui-table-view-cell mui-col-sm-4 mui-col-xs-6">
+				           <input type="checkbox" name="" id="" value="" />
+				           <label for="packingBox">保修卡</label>
+				        </li>
+				         <li class="mui-table-view-cell mui-col-sm-4 mui-col-xs-6">
+				           <input type="checkbox" name="" id="" value="" />
+				           <label for="packingBox">发票或收据</label>
+				        </li>
+				         <li class="mui-table-view-cell mui-col-sm-4 mui-col-xs-6">
+				           <input type="checkbox" name="" id="" value="" />
+				           <label for="packingBox">无任何配件</label>
+				        </li>
+				    </ul>
+					<div class="mui-text-center evaluate">
+						<button type="button" class="mui-btn mui-btn-block mui-btn-orange" id="evaluate">查看估价</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script src="js/jquery.min.js"></script>
+		<script>
+			mui.init({
+				
+			})
+			 function Init(node) {
+                return node.html("<option>请选择</option>");
+            }
+　　　　　　　//多维数组做数据来源
+            var db = {
+		              	  苹果手机: {
+				                    iPhone6: "16G,32G,64G,128G",
+				                    iPhone6s: "16G,32G,64G,128G",
+				                    iPhone6Plus:"16G,32G,64G,128G",
+				                    iPhone6sPlus:"16G,32G,64G,128G",
+				                    iPhone7:"32G,128G,256G",
+				                    iPhone7Plus: "32G,128G,256G",
+				                    iPhone8:"64G,256G",
+				                    iPhone8Plus: "64G,256G",
+				                    iPhoneX:"64G,256G"
+				                },
+		                
+					            华为手机: {
+				                   	P9: "64G,128G",
+				                    p10: "64G,128G",
+				                    mate9: "64G,128G",
+				                    mate10: "64G,128G"
+					            },
+			            
+						 三星手机:{
+				                    GalaxyS7edge: "32G,64G,128G",
+				                    GalaxyS8: "64G,128G"
+					           }
+           			 };
+		　　　　　　　　//初始化select节点
+		            $.each(db, function (changShang) {
+		                $("#phoneBrand").append("<option value='"+changShang+"'>" + changShang + "</option>");
+		            })
+           			 //一级变动
+		            $("#phoneBrand").change(function () {
+		                //清空二三级
+		                Init($("#phoneType"));
+		                Init($("#phoneStorage"));
+		                $.each(db,function (cs,pps) {
+		                    if ($("#phoneBrand option:selected").text() == cs) {
+		                        $.each(pps, function (pp, xhs) {
+		                            $("#phoneType").append("<option value='"+pp+"'>" + pp + "</option>");
+		                        });
+		                        $("#phoneType").change(function () {
+		                            Init($("#phoneStorage"));
+		                            $.each(pps, function (pp,xhs) {
+		                                if ($("#phoneType option:selected").text()==pp) {
+		                                    $.each(xhs.split(','), function () {
+		                                        $("#phoneStorage").append("<option value='"+this+"'>" + this + "</option>");
+		                                    })
+		                                }
+		                            })
+		                        })
+		                    }
+		                })
+		            })
+			//马上评估
+			$("#evaluate").click(function(){
+				var phoneBrand=$("#phoneBrand").val().trim();//手机品牌
+				var phoneType=$("#phoneType").val().trim();//手机型号
+				var phoneStorage=$("#phoneStorage").val().trim();//手机内存
+				if(phoneBrand == "请选择"){
+					mui.alert('请选择手机品牌', '', function() {
+					});
+					return;
+				}else if(phoneType == "请选择"){
+					mui.alert('请选择手机型号', '', function() {
+					});
+					return;
+				}else if(phoneStorage == "请选择"){
+					mui.alert('请选择手机内存', '', function() {
+					});
+					return;
+				}
+				var isBindCard=1;//是否绑卡  1：绑卡   0：未绑卡
+				var isIdentification=1;//是否认证   1认证   0 未认证
+				if(isBindCard==1 && isIdentification==1){ //通过认证
+					window.location.href="lending.html?phoneType="+phoneType;
+				}else{
+					alert("未认证")
+				}
+			})
+		</script>
+	</body>
+
+</html>

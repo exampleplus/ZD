@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+		<title>发送典当请求</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--<link rel="stylesheet" href="css/iconfont.css" />-->
+		<link rel="stylesheet" href="http://at.alicdn.com/t/font_526177_y4eo94umw2iysyvi.css" />
+		<!--App自定义的css-->
+		<link rel="stylesheet" href="css/app.css">
+		<style>
+		body{
+			font-size: 16px;
+		}
+			input[type="text"],input[type="date"]{
+				height:35px;
+				padding:5px 15px;
+			}
+			select{
+				height:35px;
+				padding:5px 15px;
+				-webkit-appearance:menulist-button;
+			}
+			textarea{
+				font-size: 16px;
+			}
+			@media screen and (max-width: 321px) {
+				.mui-media-padd{
+					padding: 12px 10px;
+				}
+			}
+			.mui-checkbox input[type="checkbox"]:checked:before{
+				color:#de1b1b
+			}
+			.popover{
+				position: absolute;
+				left:35%;
+				bottom:45%;
+				display: none;
+			}
+			.mark{
+				width: 100%;
+				height:100%;
+				background: rgba(0,0,0,0.4);
+				z-index: 999;
+			}
+			.progress{
+				position: absolute;
+			    font-size: 1rem;
+			    top: 64%;
+			    left: 25%;
+			    z-index: 1000;
+			    display: none;
+			   	background:rgba(0,0,0,0.8);
+			   	padding:0.8rem;
+			   	color:#fff;
+			   	border-radius: 0.2rem;
+			}
+			
+			/*提示错误信息*/
+			#cont{
+				position: absolute;
+			    font-size: 1rem;
+			    top: 54%;
+			    left: 31%;
+			    z-index: 1000;
+			    display: none;
+			   	background:rgba(0,0,0,0.8);
+			   	padding:0.5rem;
+			   	color:#fff;
+			   	border-radius: 0.2rem;
+			}
+
+		</style>
+	</head>
+	<body>
+		<div class="mui-content">
+			<div class="mui-content-padded">
+				<div class="mui-row" style="overflow: hidden;">
+					<span class="mui-pull-left mui-block lineH65">当物类型</span>
+					<!--存放图片标识-->
+					 <input type="hidden" name="ImgVal" id="ImgVal" name="pictureNo" />
+					 
+					<ul class="mui-table-view mui-pull-right" style="overflow: hidden;" id="grid">
+						<li class="mui-table-view-cell mui-pull-left mui-media-padd" id="add">
+							<span class="mui-block icon iconfont icon-zuanshi icon-zuanshi-gray mui-margin-bottom5"></span>
+							<span class="mui-block mui-margin-left3">民品</span>
+						</li>
+						<li class="mui-table-view-cell mui-pull-left mui-media-padd" id="remove">
+							<span class="mui-block icon iconfont icon-fangchan icon-fangchan-gray mui-margin-bottom5"></span>
+							<span class="mui-block mui-margin-left3">房产</span>
+						</li>
+						<li class="mui-table-view-cell mui-pull-left mui-media-padd" id="move">
+							<span class="mui-block icon iconfont icon-qiche-copy icon-qiche-gray mui-margin-bottom5"></span>
+							<span class="mui-block mui-margin-left3">汽车</span>
+						</li>
+						<li class="mui-table-view-cell mui-pull-left mui-media-padd" id="select">
+							<span class="mui-block icon iconfont icon-qita icon-qita-gray mui-margin-bottom5"></span>
+							<span class="mui-block mui-margin-left3">其他</span>
+						</li>
+					</ul>
+				</div>
+				<div class="mui-row">
+					<span class="mui-pull-left mui-padding-top10">典当金额</span>
+					<input type="text" class="mui-pull-right mui-input-clear mui-input-75" id="amountMoney" value=""/>
+				</div>
+				<div class="mui-row">
+					<span class="mui-pull-left mui-padding-top10">用款天数</span>
+					<select name="" id="useMoneyDays" class="mui-input-75 mui-pull-right">
+						<option value="30">30</option>
+						<option value="60">60</option>
+						<option value="90">90</option>
+						<option value="120">120</option>
+						<option value="150">150</option>
+					</select>
+				</div>
+				<div class="mui-row">
+					<span class="mui-pull-left mui-padding-top10">用款日期</span>
+					<input type="date" class="mui-pull-right mui-input-clear mui-input-75" id="useMoneyDate"/>
+				</div>
+				<div class="mui-row">
+					<span class="mui-pull-left mui-padding-top10">当物名称</span>
+					<input type="text" class="mui-pull-right mui-input-clear mui-input-75" id="goodsName"/>
+				</div>
+				<div class="mui-row">
+					<span class="mui-pull-left mui-padding-top10">联系人</span>
+					<input type="text" class="mui-pull-right mui-input-clear mui-input-75" id="contactPerson"/>
+				</div>
+				<div class="mui-row">
+					<span class="mui-pull-left mui-padding-top10">手机号</span>
+					<input type="text" class="mui-pull-right mui-input-clear mui-input-75" id="tel"/>
+				</div>
+				<div class="mui-row">
+					<textarea name="" rows="" cols="" class="mui-text-left" id="remark">备注.....</textarea>
+				</div>
+			</form>
+				<div class="mui-row">
+					<div class="container">
+				       <div class="z_photo" >
+				            <div class="z_file" style="float: left";>
+				            	<form action="" method="post" enctype="multipart/form-data" id="form">
+					                <input type="file" name="attach" id="fileupload" accept="image/*"/>
+				            	</form>
+				            </div>
+				            <div class="preview">
+				            	
+							</div>
+				        </div>
+				    </div
+			    </div>
+			    <!--图片上传过程提示信息-->
+				<p class="progress">
+					图片上传中，请稍后......
+				</p>
+				<!--body阴影 ，图片上传成功前不能让用户继续选择-->
+				<div class="mui-row">
+					<form class="mui-input-group">
+						<div class="mui-input-row mui-checkbox mui-left">
+							<label>允许典当行联系我</label>
+							<input name="checkbox" value="" type="checkbox" checked>
+						</div>
+					</form>
+				</div>
+				<div class="mui-row">
+					<button type="button" class="mui-btn mui-btn-danger mui-btn-block" id="sendOnline">发送</button>
+				</div>
+				<p id="cont">请输入典当金额</p>
+			</div>
+		</div>
+		
+		<script src="js/mui.min.js"></script>
+		<script src="js/jquery.min.js"></script>
+		<script src="http://malsup.github.io/jquery.form.js"></script>
+		<script src="js/common.js"></script>
+		<script>
+			mui.init({
+				swipeBack:true //启用右滑关闭功能
+			});
+				let $grid=$("#grid");
+				let $li=$grid.find("li");
+				let $span=$li.find('span:first');
+				var goodsType=0;
+				$span.each(function(index){
+					if(index==0){
+						$(this).click(function(){
+							$(this).addClass("mui-bg-minpin");
+							$(this).parent().siblings().find("span:first").removeClass('mui-bg-fangchan mui-bg-qiche mui-bg-qita');
+							goodsType=0;
+						})
+					}
+				if(index==1){
+					$(this).click(function(){
+						$(this).addClass("mui-bg-fangchan");
+						$(this).parent().siblings().find("span:first").removeClass('mui-bg-minpin mui-bg-qiche mui-bg-qita');
+						goodsType=1;
+					})
+				}
+				if(index==2){
+					$(this).click(function(){
+						$(this).addClass("mui-bg-qiche");
+						$(this).parent().siblings().find("span:first").removeClass('mui-bg-minpin mui-bg-fangchan mui-bg-qita');
+						goodsType=2;
+					})
+				}
+				if(index==3){
+					$(this).click(function(){
+						$(this).addClass("mui-bg-qita");
+						$(this).parent().siblings().find("span:first").removeClass('mui-bg-minpin mui-bg-fangchan mui-bg-qiche');
+						goodsType=3;
+					})
+				}
+			});
+
+		  function getId(){ 			//获取用户ID
+				return ddMethod.getUserId();
+			   }
+		    function checkAuth(){			//验证是否完成认证
+			    ddMethod.checkAuth();
+			  }
+		  function receiveAuthed(){
+		      	//ajax
+		      	var amountMoney=$("#amountMoney").val();
+				var useMoneyDays=$("#useMoneyDays").val();
+				var useMoneyDate=$("#useMoneyDate").val();
+				var goodsName=$("#goodsName").val();
+				var contactPerson=$("#contactPerson").val();
+				var tel=$("#tel").val();
+				var remark=$("#remark").val();
+				var uid=getId();//用户id
+				var pictureNoList=$("#ImgVal").val();
+		      		$.ajax({
+						type:'post',
+						asynd:true,
+						dataType:"json",
+						url:host+"applyImpawnInfo/saveApplyImpawnInfo",
+						data:{
+								goodsType:goodsType,
+								amountMoney:amountMoney,
+								useMoneyDays:useMoneyDays,
+								useMoneyDate:useMoneyDate,
+								goodsName:goodsName,
+								contactPerson:contactPerson,
+								tel:tel,
+								remark:remark,
+								uid:uid,
+								pictureNoList:pictureNoList
+							},
+						success:function(res){
+							alert(res.message);
+							}
+					})
+//		      		 alert("所有认证项都完成")
+					window.location.href="saleOnline.html"
+		     	  		
+			  }
+			//上传图片
+				$("#fileupload").change(function() {
+						var file=this.files[0];
+						var uid=getId();//用户id
+						var type=14;
+							var r = new FileReader();
+							r.readAsDataURL(file); //Base64
+							$(r).load(function() {
+								var $li = $('<img src="' + this.result + '" alt="" style="width:100px;height:100px;">');
+								$('.preview').append($li);
+								//立即上传图片
+      						 $("#form").attr("action",host+"guanjia_api/picture/upload-image?type="+type+"&uid="+uid).submit();
+								$(".progress").show();
+							});
+							$("#form").ajaxForm(function(res){
+								if(res.code==0){
+									$(".progress").hide();
+								}else{
+									mui.alert(res.message,'',function(){
+										
+									})
+									return;
+								}
+			           		 	data=res.data;
+			           		 	pictureUrl=data.pictureUrl;
+			           		 	pictureNo=data.pictureNo;
+					           var ImgVal=$("#ImgVal");
+					           if(ImgVal.val()==""){
+					           		ImgVal.val(pictureNo)
+					           }else{
+					           		var ons = ImgVal.val()+";"+pictureNo;
+					           		ImgVal.val(ons);
+					           }
+							});
+					});
+					//是否为空
+				function checkVar(param){
+					if(param=='' || param==undefined || param==null){
+						return false;
+					}
+					return true;
+				}
+			//发送请求
+			$("#sendOnline").click(function(){
+					var amountMoney=$("#amountMoney").val();
+					var amountMoneyLength=amountMoney.length;
+					var useMoneyDays=$("#useMoneyDays").val();
+					var useMoneyDate=$("#useMoneyDate").val();
+					var goodsName=$("#goodsName").val();
+					var contactPerson=$("#contactPerson").val();
+					var tel=$("#tel").val();
+					var remark=$("#remark").val();
+					var phonePattern = /(^(([0\+]\d{2,3}-)?(0\d{2,3})-)(\d{7,8})(-(\d{3,}))?$)|(^(([0\+]\d{2,3})?(0\d{2,3}))(\d{7,8})((\d{3,}))?$)|(^0{0,1}1[3|4|5|6|7|8|9][0-9]{9}$)/;
+					var Reg_amountMoney=/^\d+$/g;  //典当金额正则，只能是数字
+					var cont=$("#cont");
+					var preview=$(".preview");
+					var uid=getId();
+					 if(uid != ""){
+					 	checkAuth();
+					 }
+					if(!checkVar(amountMoney)){
+						cont.text('*请输入典当金额').show().delay(2000).fadeOut();
+						return;
+					}else if(Reg_amountMoney.test(amountMoney) == false){
+						cont.text('*金额必须为整数').show().delay(2000).fadeOut();
+						return
+					}else if(amountMoneyLength>11){
+						cont.text('*典当金额金额必须为3-11位').show().delay(2000).fadeOut();
+						return
+					}else if(amountMoneyLength<3){
+						cont.text('*典当金额金额必须为3-11位').show().delay(2000).fadeOut();
+						return
+					}
+					else if(!checkVar(useMoneyDate)){
+						cont.text('*请输入用款日期').show().delay(2000).fadeOut();
+						return;
+					}
+					else if(!checkVar(goodsName)){
+						cont.text('*请输入当物名称').show().delay(2000).fadeOut();
+						return;
+					}
+					else if(goodsName.length>20){
+						cont.text('*当物名称不得大于20个字').show().delay(2000).fadeOut();
+						return;
+					}
+					else if(!checkVar(contactPerson)){
+						cont.text('*请输入联系人姓名').show().delay(2000).fadeOut();
+						return;
+					}else if(contactPerson.length>10){
+						cont.text('*联系人姓名不能超过10位').show().delay(2000).fadeOut();
+						return;
+					}
+					else if(!checkVar(tel)){
+						cont.text('*请输入手机号').show().delay(2000).fadeOut();
+						return;
+					}else if(phonePattern.test(tel) == false){
+					 	cont.text('*请输入正确的手机格式').show().delay(2000).fadeOut();
+					 	return;
+					 }else if(!checkVar(remark)){
+						cont.text('*请输入备注信息').show().delay(2000).fadeOut();
+						return;
+					}
+					 else if(preview.html().trim() == ""){
+						cont.text('*请上传图片信息').show().delay(2000).fadeOut();
+						return;
+					}
+					
+			})	
+//		$("#sendOnline").click(function(){
+//			var amountMoney=$("#amountMoney").val();
+//			var useMoneyDays=$("#useMoneyDays").val();
+//			var useMoneyDate=$("#useMoneyDate").val();
+//			var goodsName=$("#goodsName").val();
+//			var contactPerson=$("#contactPerson").val();
+//			var tel=$("#tel").val();
+//			var remark=$("#tel").val();
+//			var uid=getId();
+////			var uid=1;
+//			var pictureNoList=$("#ImgVal").val();
+//			$.ajax({
+//				type:'post',
+//				asynd:true,
+//				dataType:"json",
+//				url:host+"applyImpawnInfo/saveApplyImpawnInfo",
+//				data:{
+//						goodsType:goodsType,
+//						amountMoney:amountMoney,
+//						useMoneyDays:useMoneyDays,
+//						useMoneyDate:useMoneyDate,
+//						goodsName:goodsName,
+//						contactPerson:contactPerson,
+//						tel:tel,
+//						remark:remark,
+//						uid:uid,
+//						pictureNoList:pictureNoList
+//					},
+//				success:function(res){
+//							alert("有失败了")
+//					}
+//			})
+//			window.location.href="saleOnline.html"
+//		})
+			
+		</script>
+	</body>
+</html>

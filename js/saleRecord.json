@@ -1,0 +1,41 @@
+{
+	"code":0,
+	"message":"获取成功",
+	"data":{
+		"list":[
+				{
+	                "goodsType": "手机",
+	                "saleMoney":"1000元",
+	                "saleTime": "2017-01-09" ,
+	                 "Type": "iphone6",
+	                "status":"寄售中",
+	                "id":1
+                },
+                {
+	                "goodsType": "手机",
+	                "saleMoney":"2500元",
+	                "saleTime": "2017-01-19" ,
+	                 "Type": "iphone7",
+	                "status":"撤销申请中",
+	                "id":2
+                },
+                 {
+	                "goodsType": "手机",
+	                "saleMoney":"4500元",
+	                "saleTime": "2017-01-12" ,
+	                 "Type": "iphone8Plus",
+	                "status":"寄售已撤销",
+	                "id":3
+                },
+                {
+	                "goodsType": "手机",
+	                "saleMoney":"5000元",
+	                "saleTime": "2017-01-10" ,
+	                 "Type": "iphoneX",
+	                "status":"寄售失败",
+	                "id":4
+                }
+                
+		]
+	}
+}
